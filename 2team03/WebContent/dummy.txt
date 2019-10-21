@@ -1,0 +1,18 @@
+CREATE TABLE boardlist(
+	boardlist_no NUMBER PRIMARY KEY,
+	createdBy varchar2(100),
+	title varchar2(4000),
+	intro varchar2(4000),
+	regdate DATE,
+	status varchar2(10)
+);
+CREATE SEQUENCE seq_boardlist;
+
+CREATE TABLE chatlist(
+	chatroom_no NUMBER PRIMARY KEY,
+	createdBy varchar2(100),
+	memberlist varchar2(4000),
+	regdate DATE,
+	status varchar2(10)
+);
+CREATE SEQUENCE seq_chatlist;
