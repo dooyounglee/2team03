@@ -11,11 +11,11 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 
-public class FirstDao {
+public class BoardDao {
 
 	private Properties prop = new Properties();
 	
-	public FirstDao() {
+	public BoardDao() {
 		String fileName = JDBCTemplate.class.getResource("").getPath();
 		fileName=fileName.substring(0, fileName.lastIndexOf("WEB-INF"))+"sql/board.properties";
 		try {

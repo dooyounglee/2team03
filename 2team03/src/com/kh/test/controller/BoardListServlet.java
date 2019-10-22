@@ -1,4 +1,4 @@
-package com.kh.test;
+package com.kh.test.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.test.BoardList;
+import com.kh.test.BoardService;
 
 /**
  * Servlet implementation class BoardListServlet
@@ -31,7 +34,7 @@ public class BoardListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		ArrayList<BoardList> list=new FirstService().getBoardList();
+		ArrayList<BoardList> list=new BoardService().getBoardList();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/boardlist.jsp").forward(request, response);
 	}
@@ -53,7 +56,7 @@ public class BoardListServlet extends HttpServlet {
 		bl.setTitle(title);
 		bl.setIntro(intro);
 		
-		int result=new FirstService().createBoard(bl);
+		int result=new BoardService().createBoard(bl);
 		if(result>0) {
 			response.sendRedirect("board.list");
 		}

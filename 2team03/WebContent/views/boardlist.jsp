@@ -12,7 +12,7 @@
 <%	ArrayList<BoardList> list=(ArrayList<BoardList>)request.getAttribute("list");
 	if(list.size()>0){
 		for(BoardList bl:list){%>
-		<a href="#"><%=bl.getTitle() %></a><br>
+		<a href="<%=request.getContextPath()%>/<%=bl.getTitle()%>"><%=bl.getTitle() %></a><br>
 <%		}
 	}%>
 <form action="board.list" method="post">
