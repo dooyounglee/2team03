@@ -8,14 +8,14 @@
 <script src="http://code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
-<a href="<%=request.getContextPath() %>/create.table">나가기</a>
+<a href="<%=request.getContextPath() %>/create.chat">나가기</a>
 <h1><span id="room_no"><%=request.getParameter("room_no")%></span>번 채팅방</h1>
 <h2><span id="userCount">0</span>명</h2>
 <input id="msg" onkeyup="send()">
 <button onclick="send_click()">내가</button><input id=nick>
 <div id="chat"></div>
 <script type="text/javascript">
-	var webSocket = new WebSocket('ws://<%=request.getServerName()%>:<%=request.getServerPort()%>/2team/<%=request.getParameter("room_no")%>');
+	var webSocket = new WebSocket('ws://<%=request.getServerName()%>:<%=request.getServerPort()%>/2team/chat/<%=request.getParameter("room_no")%>');
 	webSocket.onerror = function(event) {
       onError(event)
     };
@@ -30,6 +30,7 @@
     };
     function onMessage(event) {
         //textarea.value += "상대 : " + event.data + "\n";
+        console.log(event.data)
         var jsonData=JSON.parse(event.data)
     	//var id=$('#id').val();
     	//var room_no=$('#room_no').text();

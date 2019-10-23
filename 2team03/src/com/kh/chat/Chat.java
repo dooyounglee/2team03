@@ -13,7 +13,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/{room_no}")
+@ServerEndpoint("/chat/{room_no}")
 public class Chat {
 
 	private static Set<Session> clients = Collections
@@ -28,7 +28,7 @@ public class Chat {
 			// and broadcast the received message
 			
 			for (Session client : clients) {
-				if (!client.equals(session) && (int)(client.getUserProperties().get("room_no"))==room_no) {
+				if (!client.equals(session)/* && (int)(client.getUserProperties().get("room_no"))==room_no*/) {
 					client.getBasicRemote().sendText(message);
 				}
 			}
