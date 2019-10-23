@@ -13,22 +13,22 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/{room_no}")
-public class Chat {
+@ServerEndpoint("/broadcasting")
+public class Chat1 {
 
 	private static Set<Session> clients = Collections
 			.synchronizedSet(new HashSet<Session>());
 
 	@OnMessage
-	public void onMessage(String message, Session session, @PathParam("room_no") int room_no) throws IOException {
+	public void onMessage(String message, Session session) throws IOException {
 		System.out.println(message);
-		System.out.println("chat:"+clients.size());
+		System.out.println("broadcasting:"+clients.size());
 		synchronized (clients) {
 			// Iterate over the connected sessions
 			// and broadcast the received message
 			
 			for (Session client : clients) {
-				if (!client.equals(session) && (int)(client.getUserProperties().get("room_no"))==room_no) {
+				if (!client.equals(session)) {
 					client.getBasicRemote().sendText(message);
 				}
 			}
@@ -36,23 +36,17 @@ public class Chat {
 	}
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("room_no") int room_no) throws IOException {
+	public void onOpen(Session session) throws IOException {
 		// Add session to the connected sessions set
-		session.getUserProperties().put("room_no", room_no);
-		
-		//세션에서 불러온 닉네임 담고
-		
 		System.out.println("세션열림"+session+new Date().getTime());
 		clients.add(session);
-		//onMessage("입장", session, room_no);
-		System.out.println("chat:"+clients.size());
+		System.out.println("broadcasting:"+clients.size());
 	}
 
 	@OnClose
-	public void onClose(Session session, @PathParam("room_no") int room_no) throws IOException {
+	public void onClose(Session session) throws IOException {
 		// Remove session from the connected sessions set
 		System.out.println("세션닫힘"+session+new Date());
 		clients.remove(session);
-		onMessage("{\"text\":\"딴사람이 퇴장했어요.\",\"nick\":\"\"}", session, room_no);//jsp에선 호출이 안돼서 어쩔수없이 여기서.
 	}
 }
