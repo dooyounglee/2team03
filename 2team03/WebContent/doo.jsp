@@ -28,7 +28,24 @@
 		$('#summernote').summernote({
 			callbacks : {
 				onImageUpload : function(files) {
-					$(this).summernote('editor.insertImage', "resources/images/logo.png");
+					//사진 여러개 업로드. multiple이라서 한번에 여러개 선택.
+					//더 좋은 코드는 spring에서 MultipartHttpServletRequest라는게 있대네.
+					var _this=this;
+ 				    for(var i=0; i<files.length; i++){
+ 				    	var formData = new FormData();
+				        formData.append('uploadFile', files[i]);
+					    $.ajax({
+					        url: '/2team/upload',
+					        data: formData,
+					        processData: false,
+					        contentType: false,
+					        type: 'POST',
+					        success: function (data) {
+					            $(_this).summernote('editor.insertImage', "resources/images/"+data);
+					        }
+					    });
+ 				    }
+		            alert("이미지 업로드 성공");
 				}
 			}
 		});

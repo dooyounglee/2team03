@@ -11,7 +11,7 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
-<!-- <input id="search" oninput="aaa()">
+<input id="search" oninput="aaa()">
 <input id="page" oninput="aaa()">
 <div id="info"></div>
 <script>
@@ -25,16 +25,16 @@ function aaa(){
 	    success:function(data){
 	    	var arr=data.documents;
 	    	for(i=0;i<arr.length;i++){
-	    		$('#info').append("<img src='"+arr[i].thumbnail+"'><br>")
+	    		$('#info').append("<img src='"+arr[i].thumbnail+"'>")
 	    	}
 	    }
 	});
 }
-</script> -->
+</script>
 
 <hr>
 
-<div id="info0"></div>
+<!-- <div id="info0"></div>
 <script>
 $('#info0').text('')
 $.ajax({
@@ -52,6 +52,6 @@ $.ajax({
     	console.log("error "+JSON.stringify(data))
     }
 });
-</script>
+</script> -->
 </body>
 </html>
